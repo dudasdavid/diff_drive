@@ -28,7 +28,6 @@
       max_motor_speed: 3000
       timeout: 1.0
     </rosparam>
-    <remap from="cmd_vel" to="/robot/cmd_vel" />
   </node>
   
   <node name="odom_publisher" pkg="diff_drive" type="diff_drive_odometry"
