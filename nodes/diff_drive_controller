@@ -48,13 +48,16 @@ class ControllerNode:
                                                self.angularVelocity)
             self.leftPub.publish(int(speeds.left))
             self.rightPub.publish(int(speeds.right))
+            print('a')
         else:
             self.leftPub.publish(0)
             self.rightPub.publish(0)
+            print('b')
 
     def twistCallback(self, twist):
         self.linearVelocity = twist.linear.x
         self.angularVelocity = twist.angular.z
+        print("%d,%d" % (self.linearVelocity, self.angularVelocity))
         self.lastTwistTime = rospy.get_time()
 
 if __name__ == '__main__':
