@@ -16,10 +16,11 @@ class Controller:
     def __init__(self):
         # Set the max motor speed to a very large value so that it
         # is, essentially, unbound.
-        self.maxMotorSpeed = 1E9 # ticks/s
+        self.maxMotorSpeed = 10000 # ticks/s
 
     def getSpeeds(self, linearSpeed, angularSpeed):
         tickRate = linearSpeed*self.ticksPerMeter
+        print(linearSpeed,tickRate)
         diffTicks = angularSpeed*self.wheelSeparation*self.ticksPerMeter
 
         speeds = MotorCommand()
