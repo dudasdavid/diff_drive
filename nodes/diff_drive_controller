@@ -13,7 +13,7 @@ class ControllerNode:
         self.controller = controller.Controller()
         self.linearVelocity = 0.0
         self.angularVelocity = 0.0
-        wheels_to_send = Int16MultiArray()
+        self.wheels_to_send = Int16MultiArray()
 
     def main(self):
         self.leftPub = rospy.Publisher('lwheel_desired_rate',
@@ -52,14 +52,14 @@ class ControllerNode:
                                                self.angularVelocity)
             self.leftPub.publish(int(speeds.left))
             self.rightPub.publish(int(speeds.right))
-            wheels_to_send.data = [int(speeds.left), int(speeds.right)]
-            self.wheelPub.publish(wheels_to_send)
+            self.wheels_to_send.data = [int(speeds.left), int(speeds.right)]
+            self.wheelPub.publish(self.wheels_to_send)
             # print('a')
         else:
             self.leftPub.publish(0)
             self.rightPub.publish(0)
-            wheels_to_send.data = [0, 0]
-            self.wheelPub.publish(wheels_to_send)
+            self.wheels_to_send.data = [0, 0]
+            self.wheelPub.publish(self.wheels_to_send)
             # print('b')
 
     def twistCallback(self, twist):
