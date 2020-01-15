@@ -20,7 +20,7 @@ class Controller:
 
     def getSpeeds(self, linearSpeed, angularSpeed):
         tickRate = linearSpeed*self.ticksPerMeter
-        print(linearSpeed,tickRate)
+        # print(linearSpeed,tickRate)
         diffTicks = angularSpeed*self.wheelSeparation*self.ticksPerMeter
 
         speeds = MotorCommand()

@@ -32,6 +32,10 @@ class Odometry:
 
     def updateRightWheel(self, newCount):
         self.rightEncoder.update(newCount)
+        
+    def updateWheels(self, left, right):
+        self.leftEncoder.update(left)
+        self.rightEncoder.update(right)        
 
     def updatePose(self, newTime):
         """Updates the pose based on the accumulated encoder ticks

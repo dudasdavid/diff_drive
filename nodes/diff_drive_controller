@@ -15,12 +15,7 @@ class ControllerNode:
         self.angularVelocity = 0.0
         self.wheels_to_send = Int16MultiArray()
 
-    def main(self):
-        self.leftPub = rospy.Publisher('lwheel_desired_rate',
-                                       Int16, queue_size=1)
-        self.rightPub = rospy.Publisher('rwheel_desired_rate',
-                                        Int16, queue_size=1)
-                                        
+    def main(self):                      
         self.wheelPub = rospy.Publisher('wheels_desired_rate',
                                         Int16MultiArray, queue_size=1)
                                         
@@ -50,17 +45,13 @@ class ControllerNode:
         if rospy.get_time() - self.lastTwistTime < self.timeout:
             speeds = self.controller.getSpeeds(self.linearVelocity,
                                                self.angularVelocity)
-            self.leftPub.publish(int(speeds.left))
-            self.rightPub.publish(int(speeds.right))
-            self.wheels_to_send.data = [int(speeds.left), int(speeds.right)]
+
+            self.wheels_to_send.data = [int(speeds.left), int(speeds.right), int(speeds.left), int(speeds.right)]
             self.wheelPub.publish(self.wheels_to_send)
-            # print('a')
+            
         else:
-            self.leftPub.publish(0)
-            self.rightPub.publish(0)
-            self.wheels_to_send.data = [0, 0]
+            self.wheels_to_send.data = [0, 0, 0, 0]
             self.wheelPub.publish(self.wheels_to_send)
-            # print('b')
 
     def twistCallback(self, twist):
         self.linearVelocity = twist.linear.x
